@@ -1,11 +1,12 @@
-local nvim_lsp = require('lspconfig')
+local lspconfig = require('lspconfig')
+local coq = require('coq')
 
 -- Use an on_attach function to only map the following keys 
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-  require'completion'.on_attach(client, bufnr)
+
   --Enable completion triggered by <c-x><c-o>
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -35,9 +36,8 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "rust_analyzer", "tsserver", "purescriptls", "hls" }
+local servers = { "rust_analyzer", "tsserver", "purescriptls", "hls", "vimls" }
 for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup { on_attach = on_attach }
-  -- nvim_lsp[lsp].setup { on_attach = require'completion'.on_attach }
+  lspconfig[lsp].setup(coq().lsp_ensure_capabilities({ on_attach = on_attach }))
 end
 
