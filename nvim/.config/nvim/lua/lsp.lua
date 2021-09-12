@@ -38,6 +38,6 @@ end
 -- map buffer local keybindings when the language server attaches
 local servers = { "rust_analyzer", "tsserver", "purescriptls", "hls", "vimls" }
 for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup(coq().lsp_ensure_capabilities({ on_attach = on_attach }))
+  lspconfig[lsp].setup(coq.lsp_ensure_capabilities({ on_attach = on_attach }))
 end
 
