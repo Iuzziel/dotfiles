@@ -34,4 +34,5 @@ fi
 # export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
 export DISPLAY=$(grep ^nameserver /etc/resolv.conf | cut -f 2 -d ' ' | head -1):0
 export LIBGL_ALWAYS_INDIRECT=1
-. "$HOME/.cargo/env"
+
+[ -f ~/.cargo/env ] && source ~/.cargo/env

@@ -19,11 +19,8 @@ set undofile
 set noerrorbells
 set hidden
 
-let g:gruvbox_contrast_dark = 'medium'
-set background=dark
-colorscheme gruvbox
-
 call plug#begin('~/.vim/plugged')
+Plug 'Murtaza-Udaipurwala/gruvqueen'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'hoob3rt/lualine.nvim'
@@ -38,6 +35,22 @@ Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
 Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
 call plug#end()
+
+" let g:gruvbox_contrast_dark = 'medium'
+set background=dark
+" colorscheme gruvbox " vim packaged gruvbox
+
+" Murtaza-Udaipurwala/gruvqueen params
+let g:gruvqueen_transparent_background = v:true
+let g:gruvqueen_background_color = '#10151a'
+let g:gruvqueen_disable_bold = v:false
+let g:gruvqueen_italic_comments = v:true
+let g:gruvqueen_italic_keywords = v:false
+let g:gruvqueen_italic_functions = v:true
+let g:gruvqueen_italic_variables = v:false
+let g:gruvqueen_invert_selection = v:true
+let g:gruvqueen_style = 'mix' " possible values: 'original', 'mix', 'material'
+colorscheme gruvqueen
 
 lua require('lualine').setup()
 set laststatus=2

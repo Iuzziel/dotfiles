@@ -57,7 +57,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 # Git status in bash prompt
-[ -f /etc/bash_completion.d/git-prompt ] && source /etc/bash_completion.d/git-prompt
+[ -f /etc/bash_completion.d/git-prompt.sh ] && source /etc/bash_completion.d/git-prompt.sh
 export GIT_PS1_SHOWDIRTYSTATE=1
 
 if [ "$color_prompt" = yes ]; then
@@ -100,7 +100,7 @@ fi
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # Cargo rust
-. "$HOME/.cargo/env"
+[ -f ~/.cargo/env ] && source ~/.cargo/env
 
 # Haskell
-[ -f "/home/iuzziel/.ghcup/env" ] && source "/home/iuzziel/.ghcup/env" # ghcup-env
+[ -f ~/.ghcup/env ] && source ~/.ghcup/env
