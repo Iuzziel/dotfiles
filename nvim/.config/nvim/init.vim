@@ -1,6 +1,7 @@
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath = &runtimepath
 
+let mapleader=" "
 set number
 set relativenumber
 set backupdir=/tmp
