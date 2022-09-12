@@ -18,6 +18,8 @@ shopt -s histappend
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000
 HISTFILESIZE=2000
+# Add time on history
+HISTTIMEFORMAT="%c "
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -40,6 +42,11 @@ case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
 esac
 
+# Add git-prompt
+source /etc/bash_completion.d/git-prompt
+# Show modified states
+export GIT_PS1_SHOWDIRTYSTATE=1
+
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
@@ -56,12 +63,8 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-# Git status in bash prompt
-[ -f /etc/bash_completion.d/git-prompt.sh ] && source /etc/bash_completion.d/git-prompt.sh
-export GIT_PS1_SHOWDIRTYSTATE=1
-
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] $(__git_ps1 "(%s)")\n\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w \[\033[01;31m\]$(__git_ps1 "(%s)")\[\033[00m\]\n\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w $(__git_ps1 "(%s)")\n\$ '
 fi
@@ -75,7 +78,6 @@ xterm*|rxvt*)
 *)
     ;;
 esac
-
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -97,10 +99,11 @@ if ! shopt -oq posix; then
   fi
 fi
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
+[ -f "$HOME/.local/share/bash_completion/rustup" ] && source "$HOME/.local/share/bash_completion/rustup"
+[ -f "$HOME/.local/share/bash_completion/cargo" ] && source "$HOME/.local/share/bash_completion/cargo"
 
-# Cargo rust
-[ -f ~/.cargo/env ] && source ~/.cargo/env
+[ -f "$HOME/.bash_completion/alacritty" ] && source "$HOME/.bash_completion/alacritty"
 
-# Haskell
-[ -f ~/.ghcup/env ] && source ~/.ghcup/env
+[ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env" # ghcup-env
+

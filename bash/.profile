@@ -12,27 +12,29 @@
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
     if [ -f "$HOME/.bashrc" ]; then
-	. "$HOME/.bashrc"
+        . "$HOME/.bashrc"
     fi
 fi
 
 # set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
+if [ -d "$HOME/bin" ]; then
     PATH="$HOME/bin:$PATH"
 fi
 
 # set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/.local/bin" ] ; then
+if [ -d "$HOME/.local/bin" ]; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-if [ -d "$HOME/.emacs.d/bin" ] ; then
-    PATH="$PATH:$HOME/.emacs.d/bin"
+# Emacs bin
+if [ -d "$HOME/.emacs.d/bin" ]; then
+  PATH="$HOME/.emacs.d/bin:$PATH"
+fi
+if [ -d "$HOME/.config/emacs/bin" ]; then
+  PATH="$HOME/.config/emacs/bin:$PATH"
 fi
 
-# WSL Graphic compliance
-# export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
-export DISPLAY=$(grep ^nameserver /etc/resolv.conf | cut -f 2 -d ' ' | head -1):0
-export LIBGL_ALWAYS_INDIRECT=1
-
-[ -f ~/.cargo/env ] && source ~/.cargo/env
+# Add cargo and cargo bin to path
+if [ -d "$HOME/.cargo" ]; then
+  . "$HOME/.cargo/env"
+fi
