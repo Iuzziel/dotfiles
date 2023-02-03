@@ -1,7 +1,9 @@
 require("user.set")
 require("user.packer")
-require("user.neogit")
--- require("user.debugger")
+require("user.lualine")
+require("user.fugitive")
+require("user.gitsigns")
+require("user.coq")
 
 local augroup = vim.api.nvim_create_augroup
 UserMeGroup = augroup('UserMe', {})

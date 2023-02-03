@@ -3,37 +3,41 @@ return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
+    use 'nvim-tree/nvim-web-devicons'
+    use {
+      'nvim-lualine/lualine.nvim',
+      requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+    }
+
     -- Magit clone
-    use("TimUntersberger/neogit")
+    use("tpope/vim-fugitive")
+    use("lewis6991/gitsigns.nvim")
 
     -- TJ created lodash of neovim
-    use("nvim-lua/plenary.nvim")
-    use("nvim-lua/popup.nvim")
+    -- use("nvim-lua/plenary.nvim")
+    -- use("nvim-lua/popup.nvim")
     use({
         "nvim-telescope/telescope.nvim",
-        requires = {"nvim-lua/plenary.nvim"}
+        requires = {
+          {"nvim-lua/plenary.nvim"},
+          {"nvim-tree/nvim-web-devicons"}
+        }
     })
 
     -- All the things
     use("neovim/nvim-lspconfig")
-    use("hrsh7th/cmp-nvim-lsp")
-    use("hrsh7th/cmp-buffer")
-    use("hrsh7th/cmp-path")
-    -- use("hrsh7th/cmp-cmdline")
-    use("hrsh7th/nvim-cmp")
-    use("onsails/lspkind-nvim")
-    use("nvim-lua/lsp_extensions.nvim")
-    use({
-        "glepnir/lspsaga.nvim",
-        requires = { 'neovim/nvim-lspconfig' }
+    use("j-hui/fidget.nvim")
+    use ({
+      "ms-jpq/coq.thirdparty",
+      branch = "3p"
     })
-    use("simrat39/symbols-outline.nvim")
-    use("L3MON4D3/LuaSnip")
-    use("saadparwaiz1/cmp_luasnip")
-    use("rafamadriz/friendly-snippets")
-
-    -- Primeagen doesn't create lodash
-    use("ThePrimeagen/git-worktree.nvim")
+    use({"ms-jpq/coq_nvim",
+      branch = "coq"
+    })
+    use({
+      "ms-jpq/coq.artifacts",
+      branch = "artifacts"
+    })
     use({
         "ThePrimeagen/harpoon",
         requires = { 'nvim-lua/plenary.nvim' }
@@ -42,12 +46,13 @@ return require('packer').startup(function(use)
     use("mbbill/undotree")
 
     -- Colorscheme section
-    use("gruvbox-community/gruvbox")
+    -- use("gruvbox-community/gruvbox")
     use("folke/tokyonight.nvim")
 
     use("nvim-treesitter/nvim-treesitter", {
-    	run = ':TSUpdate'
+        run = ":TSUpdate"
     })
+
     use({
         "nvim-treesitter/playground",
         "romgrk/nvim-treesitter-context",
@@ -57,14 +62,24 @@ return require('packer').startup(function(use)
     use('tpope/vim-commentary')
     use('tpope/vim-obsession')
 
-    use("mfussenegger/nvim-dap")
     use({
-        "rcarriga/nvim-dap-ui",
-        "theHamsta/nvim-dap-virtual-text",
-        requires = { "mfussenegger/nvim-dap" }
+      'nvim-orgmode/orgmode',
+      requires = { 'nvim-treesitter/nvim-treesitter' },
+      config = function()
+        require('orgmode').setup{}
+        require('orgmode').setup_ts_grammar{}
+      end
     })
 
-    use('kyazdani42/nvim-web-devicons')
-    -- use("folke/which-key.nvim")
+    use({
+      "folke/which-key.nvim",
+      config = function()
+        require("which-key").setup {
+          -- your configuration comes here
+          -- or leave it empty to use the default settings
+          -- refer to the configuration section below
+        }
+      end
+    })
 
 end)
