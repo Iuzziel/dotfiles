@@ -80,6 +80,10 @@ require("lspconfig").tsserver.setup(config())
 
 require("lspconfig").eslint.setup(config())
 
+require("lspconfig").hls.setup(config({
+  filetypes = { 'haskell', 'lhaskell', 'cabal' },
+}))
+
 -- who even uses this?
 require("lspconfig").rust_analyzer.setup(config({
   cmd = { "rustup", "run", "nightly", "rust-analyzer" },
